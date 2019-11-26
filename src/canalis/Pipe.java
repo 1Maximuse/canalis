@@ -3,8 +3,6 @@ package canalis;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -12,7 +10,7 @@ public class Pipe implements Renderable, Clickable {
 	
 	public static final int SIZE = 80;
 	
-	private BufferedImage texture;
+	private BufferedImage[] texture = new BufferedImage[4];
 	private Type type;
 	private int orientation;
 	private int posX, posY;
@@ -24,8 +22,18 @@ public class Pipe implements Renderable, Clickable {
 		if (type == Type.STRAIGHT) this.orientation %= 2;
 		this.posX = posX;
 		this.posY = posY;
-		if (type == Type.STRAIGHT) texture = Game.getTexture("pipe_straight.png");
-		else if (type == Type.BEND) texture = Game.getTexture("pipe_bend.png");
+		if (type == Type.STRAIGHT) {
+			texture[0] = Game.getTexture("horizontal/pipe_horizontal.png");
+			texture[1] = Game.getTexture("vertical/pipe_vertical.png");
+			texture[2] = Game.getTexture("horizontal/pipe_horizontal.png");
+			texture[3] = Game.getTexture("vertical/pipe_vertical.png");
+		}
+		else if (type == Type.BEND) {
+			texture[0] = Game.getTexture("top_right/pipe_corner_top_right.png");
+			texture[1] = Game.getTexture("bottom_right/pipe_corner_bottom_right.png");
+			texture[2] = Game.getTexture("bottom_left/pipe_corner_bottom_left.png");
+			texture[3] = Game.getTexture("top_left/pipe_corner_top_left.png");
+		}
 	}
 	
 	public void rotate() {
@@ -69,10 +77,7 @@ public class Pipe implements Renderable, Clickable {
 	
 	@Override
 	public void render(Graphics g) {
-		AffineTransform tx = new AffineTransform();
-		tx.rotate(Math.toRadians(90 * orientation), texture.getWidth() / 2, texture.getHeight() / 2);
-		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-		g.drawImage(op.filter(texture, null), posX, posY, posX + SIZE, posY + SIZE, 0, 0, 512, 512, new Color(220, 220, 220), null);
+		g.drawImage(texture[orientation], posX, posY, SIZE, SIZE, null);
 		g.setColor(Color.GRAY);
 		g.drawRect(posX, posY, SIZE, SIZE);
 	}

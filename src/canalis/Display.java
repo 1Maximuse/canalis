@@ -2,22 +2,19 @@ package canalis;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Display extends JPanel implements MouseListener {
+public class Display extends JPanel {
 	
-	private Game game;
 	private ArrayList<Renderable> renderObjects;
 	
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		for (Renderable obj : renderObjects) {
 			obj.render(g);
 		}
@@ -34,9 +31,11 @@ public class Display extends JPanel implements MouseListener {
 	public Display(int width, int height, Game game) {
 		setPreferredSize(new Dimension(width, height));
 		renderObjects = new ArrayList<Renderable>();
-		this.game = game;
 		
-		addMouseListener(this);
+		MouseHandler handler = new MouseHandler(game);
+		addMouseListener(handler);
+		addMouseMotionListener(handler);
+		addMouseWheelListener(handler);
 		
 		JFrame frame = new JFrame("Canalis");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,21 +44,4 @@ public class Display extends JPanel implements MouseListener {
 		frame.pack();
 		frame.setVisible(true);
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		game.mouseClicked(e);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {}
 }
