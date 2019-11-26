@@ -48,4 +48,15 @@ public class Game implements Runnable {
 		}
 		return null;
 	}
+
+	public static BufferedImage getTextureAtlas(String path, int sizeX, int sizeY, int posX, int posY) {
+		try {
+			return ImageIO.read(Game.class.getResource("/textures/" + path)).getSubimage(posX*sizeX, posY*sizeY, sizeX, sizeY);
+		} catch (Exception e) {
+			System.err.println("Cannot get image texture for " + path + "!");
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return null;
+	}
 }

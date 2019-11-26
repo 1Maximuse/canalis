@@ -10,7 +10,7 @@ public class Pipe implements Renderable, Clickable {
 	
 	public static final int SIZE = 80;
 	
-	private BufferedImage[] texture = new BufferedImage[4];
+	private BufferedImage[] texture = new BufferedImage[5];
 	private Type type;
 	private int orientation;
 	private int posX, posY;
@@ -25,8 +25,6 @@ public class Pipe implements Renderable, Clickable {
 		if (type == Type.STRAIGHT) {
 			texture[0] = Game.getTexture("horizontal/pipe_horizontal.png");
 			texture[1] = Game.getTexture("vertical/pipe_vertical.png");
-			texture[2] = Game.getTexture("horizontal/pipe_horizontal.png");
-			texture[3] = Game.getTexture("vertical/pipe_vertical.png");
 		}
 		else if (type == Type.BEND) {
 			texture[0] = Game.getTexture("top_right/pipe_corner_top_right.png");
@@ -34,6 +32,7 @@ public class Pipe implements Renderable, Clickable {
 			texture[2] = Game.getTexture("bottom_left/pipe_corner_bottom_left.png");
 			texture[3] = Game.getTexture("top_left/pipe_corner_top_left.png");
 		}
+		texture[4] = Game.getTextureAtlas("board.png", 128, 128, 2, 1);
 	}
 	
 	public void rotate() {
@@ -77,6 +76,7 @@ public class Pipe implements Renderable, Clickable {
 	
 	@Override
 	public void render(Graphics g) {
+		g.drawImage(texture[4], posX, posY, SIZE, SIZE, null);
 		g.drawImage(texture[orientation], posX, posY, SIZE, SIZE, null);
 		g.setColor(Color.GRAY);
 		g.drawRect(posX, posY, SIZE, SIZE);
