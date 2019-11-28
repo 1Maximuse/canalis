@@ -8,11 +8,26 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import canalis.objects.Faucet;
+import canalis.objects.Pipe;
+import canalis.objects.PipeGrid;
+
 public class Game implements Runnable {
 
 	private Display display;
 	
 	PipeGrid grid;
+	Faucet faucet;
+	
+	@Override
+	public void run() {
+		display = new Display(640, 480, this);
+		grid = new PipeGrid(100, 100, 3, 5);
+		faucet = new Faucet(100 - Pipe.SIZE, 100 - Pipe.SIZE - 10, display);
+		
+		display.addRenderObject(grid);
+		display.addRenderObject(faucet);
+	}
 	
 	public void mousePressed(MouseEvent e) {
 		ArrayList<Renderable> renderObjects = display.getRenderObjects();
@@ -25,13 +40,6 @@ public class Game implements Runnable {
 			}
 		}
 		display.repaint();
-	}
-	
-	@Override
-	public void run() {
-		display = new Display(640, 480, this);
-		grid = new PipeGrid(3, 5);
-		display.addRenderObject(grid);
 	}
 	
 	public static void main(String[] args) {

@@ -3,7 +3,7 @@ package canalis;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import canalis.Pipe.Face;
+import canalis.objects.Pipe.Face;
 
 public class LevelGenerator {
 	
@@ -24,13 +24,13 @@ public class LevelGenerator {
 			}
 		}
 		generate(0, 0, 0);
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				System.out.printf("%d\t", path[i][j]);
-			}
-			System.out.println();
-		}
-		System.out.println();
+//		for (int i = 0; i < height; i++) {
+//			for (int j = 0; j < width; j++) {
+//				System.out.printf("%d\t", path[i][j]);
+//			}
+//			System.out.println();
+//		}
+//		System.out.println();
 		tiles = createTiles(0, 0);
 	}
 	
