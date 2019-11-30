@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import canalis.objects.Faucet;
+import canalis.objects.MainMenu;
 import canalis.objects.Pipe;
 import canalis.objects.PipeGrid;
 
@@ -18,15 +19,22 @@ public class Game implements Runnable {
 	
 	PipeGrid grid;
 	Faucet faucet;
+	MainMenu mainmenu;
 	
 	@Override
 	public void run() {
 		display = new Display(640, 480, this);
+		display.setScene(0);
+		mainmenu = new MainMenu(display);
+		display.addRenderObject(mainmenu);
+		
+		display.setScene(1);
 		grid = new PipeGrid(100, 100, 3, 5);
 		faucet = new Faucet(100 - Pipe.SIZE, 100 - Pipe.SIZE - 10, display);
-		
 		display.addRenderObject(grid);
 		display.addRenderObject(faucet);
+		
+		display.setScene(0);
 	}
 	
 	public void mousePressed(MouseEvent e) {
@@ -37,6 +45,7 @@ public class Game implements Runnable {
 				if (inputObject.isInside(e.getX(), e.getY())) {
 					inputObject.onClick(e);
 				}
+//				inputObject.onClick(e);
 			}
 		}
 		display.repaint();
