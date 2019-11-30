@@ -2,28 +2,38 @@ package canalis;
 
 import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
 import canalis.objects.Faucet;
-import canalis.objects.Pipe;
 import canalis.objects.PipeGrid;
 
 public class Game implements Runnable {
 
+	public static int GRID_SIZE;
 	private Display display;
 	
 	PipeGrid grid;
 	Faucet faucet;
 	
+	public void tryFlow() {
+		grid.startFlow();
+	}
+	
+	public void startFlow() {
+		faucet.setRotating(true);
+	}
+	
+	public void stopFlow() {
+		faucet.setRotating(false);
+	}
+	
 	@Override
 	public void run() {
-		display = new Display(640, 480, this);
-		grid = new PipeGrid(100, 100, 3, 5);
-		faucet = new Faucet(100 - Pipe.SIZE, 100 - Pipe.SIZE - 10, display);
+		GRID_SIZE = 1280 / 10;
+		Assets.loadTextures();
+		display = new Display(1280, 720, this);
+		grid = new PipeGrid(GRID_SIZE, GRID_SIZE, 3, 5, this, display);
+		faucet = new Faucet(0, 0, this, display);
 		
 		display.addRenderObject(grid);
 		display.addRenderObject(faucet);
@@ -44,27 +54,5 @@ public class Game implements Runnable {
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Game());
-	}
-	
-	public static BufferedImage getTexture(String path) {
-		try {
-			return ImageIO.read(Game.class.getResource("/textures/" + path));
-		} catch (IOException e) {
-			System.err.println("Cannot get image texture for " + path + "!");
-			e.printStackTrace();
-			System.exit(1);
-		}
-		return null;
-	}
-
-	public static BufferedImage getTextureAtlas(String path, int sizeX, int sizeY, int posX, int posY) {
-		try {
-			return ImageIO.read(Game.class.getResource("/textures/" + path)).getSubimage(posX*sizeX, posY*sizeY, sizeX, sizeY);
-		} catch (Exception e) {
-			System.err.println("Cannot get image texture for " + path + "!");
-			e.printStackTrace();
-			System.exit(1);
-		}
-		return null;
 	}
 }

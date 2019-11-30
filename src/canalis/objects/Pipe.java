@@ -1,22 +1,20 @@
 package canalis.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import canalis.Assets;
 import canalis.Clickable;
 import canalis.Game;
 import canalis.Renderable;
 
 public class Pipe extends GameObject implements Renderable, Clickable {
 	
-	public static final int SIZE = 80;
-	
-	private final BufferedImage[] texture = new BufferedImage[5];
 	private final Type type;
 	private int orientation;
+	private int flowPos;
+	private Face flowFrom;
 	Random rand = new Random();
 	
 	public Pipe(Type type, int orientation, int posX, int posY) {
@@ -26,17 +24,13 @@ public class Pipe extends GameObject implements Renderable, Clickable {
 		if (type == Type.STRAIGHT) this.orientation %= 2;
 		this.posX = posX;
 		this.posY = posY;
-		if (type == Type.STRAIGHT) {
-			texture[0] = Game.getTexture("horizontal/pipe_horizontal.png");
-			texture[1] = Game.getTexture("vertical/pipe_vertical.png");
-		}
-		else if (type == Type.BEND) {
-			texture[0] = Game.getTexture("top_right/pipe_corner_top_right.png");
-			texture[1] = Game.getTexture("bottom_right/pipe_corner_bottom_right.png");
-			texture[2] = Game.getTexture("bottom_left/pipe_corner_bottom_left.png");
-			texture[3] = Game.getTexture("top_left/pipe_corner_top_left.png");
-		}
-		texture[4] = Game.getTextureAtlas("board.png", 128, 128, 2, 1);
+		flowPos = -1;
+		flowFrom = null;
+	}
+
+	public void setFlowing(int i, Face from) {
+		flowPos = i;
+		flowFrom = from;
 	}
 	
 	public void rotate() {
@@ -60,12 +54,12 @@ public class Pipe extends GameObject implements Renderable, Clickable {
 		switch (type) {
 		case STRAIGHT:
 			if (face == Face.TOP || face == Face.BOTTOM) return orientation == 0;
-			else return orientation == 1;
+			else if (face == Face.LEFT || face == Face.RIGHT) return orientation == 1;
 		case BEND:
 			if (face == Face.TOP) return (orientation == 0 || orientation == 3);
 			else if (face == Face.RIGHT) return (orientation == 0 || orientation == 1);
 			else if (face == Face.BOTTOM) return (orientation == 1 || orientation == 2);
-			else return (orientation == 2 || orientation == 3);
+			else if (face == Face.LEFT) return (orientation == 2 || orientation == 3);
 		default:
 			return false;
 		}
@@ -78,16 +72,62 @@ public class Pipe extends GameObject implements Renderable, Clickable {
 	
 	@Override
 	public boolean isInside(int x, int y) {
-		if (x > posX && x < posX + SIZE && y > posY && y < posY + SIZE) return true;
+		if (x > posX && x < posX + Game.GRID_SIZE && y > posY && y < posY + Game.GRID_SIZE) return true;
 		else return false;
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(texture[4], posX, posY, SIZE, SIZE, null);
-		g.drawImage(texture[orientation], posX, posY, SIZE, SIZE, null);
-		g.setColor(Color.GRAY);
-		g.drawRect(posX, posY, SIZE, SIZE);
+		g.drawImage(Assets.board, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+		if (getType() == Type.STRAIGHT) {
+			switch (getOrientation()) {
+			case 0:
+				if (flowPos > -1) {
+					if (flowFrom == Face.BOTTOM) g.drawImage(Assets.waterVerticalBottom[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+					else if (flowFrom == Face.TOP) g.drawImage(Assets.waterVerticalTop[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				}
+				g.drawImage(Assets.pipeVertical, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				break;
+			case 1:
+				if (flowPos > -1) {
+					if (flowFrom == Face.LEFT) g.drawImage(Assets.waterHorizontalLeft[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+					else if (flowFrom == Face.RIGHT) g.drawImage(Assets.waterHorizontalRight[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				}
+				g.drawImage(Assets.pipeHorizontal, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				break;
+			}
+		} else if (getType() == Type.BEND) {
+			switch (getOrientation()) {
+			case 0:
+				if (flowPos > -1) {
+					if (flowFrom == Face.RIGHT) g.drawImage(Assets.waterTopRightRight[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+					else if (flowFrom == Face.TOP) g.drawImage(Assets.waterTopRightTop[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				}
+				g.drawImage(Assets.pipeTopRight, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				break;
+			case 1:
+				if (flowPos > -1) {
+					if (flowFrom == Face.RIGHT) g.drawImage(Assets.waterBottomRightRight[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+					else if (flowFrom == Face.BOTTOM) g.drawImage(Assets.waterBottomRightBottom[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				}
+				g.drawImage(Assets.pipeBottomRight, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				break;
+			case 2:
+				if (flowPos > -1) {
+					if (flowFrom == Face.LEFT) g.drawImage(Assets.waterBottomLeftLeft[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+					else if (flowFrom == Face.BOTTOM) g.drawImage(Assets.waterBottomLeftBottom[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				}
+				g.drawImage(Assets.pipeBottomLeft, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				break;
+			case 3:
+				if (flowPos > -1) {
+					if (flowFrom == Face.LEFT) g.drawImage(Assets.waterTopLeftLeft[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+					else if (flowFrom == Face.TOP) g.drawImage(Assets.waterTopLeftTop[flowPos], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				}
+				g.drawImage(Assets.pipeTopLeft, posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+				break;
+			}
+		}
 	}
 	
 	public enum Type {

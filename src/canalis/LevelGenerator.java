@@ -1,8 +1,10 @@
 package canalis;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import canalis.objects.Pipe;
 import canalis.objects.Pipe.Face;
 
 public class LevelGenerator {
@@ -24,14 +26,14 @@ public class LevelGenerator {
 			}
 		}
 		generate(0, 0, 0);
+		tiles = createTiles(0, 0);
 //		for (int i = 0; i < height; i++) {
-//			for (int j = 0; j < width; j++) {
-//				System.out.printf("%d\t", path[i][j]);
-//			}
-//			System.out.println();
+//		for (int j = 0; j < width; j++) {
+//			System.out.printf("%d\t", path[i][j]);
 //		}
 //		System.out.println();
-		tiles = createTiles(0, 0);
+//	}
+//	System.out.println();
 	}
 	
 	public int[][] getTiles() {
@@ -107,5 +109,35 @@ public class LevelGenerator {
 			return 1;
 		}
 		return 0;
+	}
+	
+	public ArrayList<Point> getOrder(Pipe[][] pipes) {
+		if (!pipes[0][0].getAccess(Face.LEFT)) return null;
+		if (!pipes[height-1][width-1].getAccess(Face.RIGHT)) return null;
+		ArrayList<Point> p = new ArrayList<Point>();
+		int x = 0;
+		int y = 0;
+		Face prev = Face.LEFT;
+		while (x != width-1 || y != height-1)  {
+			p.add(new Point(x, y));
+//			System.out.println(x + ":" + y);
+			if (prev != Face.TOP && pipes[y][x].getAccess(Face.TOP) && y > 0 && pipes[y-1][x].getAccess(Face.BOTTOM)) {
+				prev = Face.BOTTOM;
+				y--;
+			} else if (prev != Face.RIGHT && pipes[y][x].getAccess(Face.RIGHT) && x < width-1 && pipes[y][x+1].getAccess(Face.LEFT)) {
+				prev = Face.LEFT;
+				x++;
+			} else if (prev != Face.BOTTOM && pipes[y][x].getAccess(Face.BOTTOM) && y < height-1 && pipes[y+1][x].getAccess(Face.TOP)) {
+				prev = Face.TOP;
+				y++;
+			} else if (prev != Face.LEFT && pipes[y][x].getAccess(Face.LEFT) && x > 0 && pipes[y][x-1].getAccess(Face.RIGHT)) {
+				prev = Face.RIGHT;
+				x--;
+			} else {
+				return null;
+			}
+		}
+		p.add(new Point(width-1, height-1));
+		return p;
 	}
 }
