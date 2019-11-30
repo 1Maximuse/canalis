@@ -7,6 +7,11 @@ import javax.imageio.ImageIO;
 
 public class Assets {
 	
+	public static BufferedImage background;
+	public static BufferedImage logo;
+	public static BufferedImage options;
+	public static BufferedImage playButton;
+	
 	public static BufferedImage pipeHorizontal;
 	public static BufferedImage pipeVertical;
 	public static BufferedImage pipeTopRight;
@@ -35,6 +40,11 @@ public class Assets {
 	public static BufferedImage[] faucet = new BufferedImage[8];
 	
 	public static void loadTextures() {
+		background = getTexture("main_menu/background.png");
+		logo = getTexture("main_menu/logo.png");
+		options = getTexture("main_menu/options.png");
+		playButton = getTexture("main_menu/play.png");
+		
 		pipeHorizontal = getTexture("horizontal/pipe_horizontal.png");
 		pipeVertical = getTexture("vertical/pipe_vertical.png");
 		pipeTopRight = getTexture("top_right/pipe_corner_top_right.png");

@@ -10,37 +10,42 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Display extends JPanel {
 	
-	private ArrayList<Renderable> renderObjects[];
-	private int scene = 0;
+	/**
+	 * Scene 0: Main Menu
+	 * Scene 1: Game
+	 * Scene 2: Settings
+	 */
+	private ArrayList<Renderable>[] renderObjects;
+	private int currentScene = 0;
 	private final int width;
 	private final int height;
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (Renderable obj : renderObjects[scene]) {
+		for (Renderable obj : renderObjects[currentScene]) {
 			obj.render(g);
 		}
 	}
 	
-	public ArrayList<Renderable> getRenderObjects() {
+	public ArrayList<Renderable> getRenderObjects(int scene) {
 		return renderObjects[scene];
 	}
 	
-	public void clearRenderObject() {
+	public void clearRenderObject(int scene) {
 		renderObjects[scene].clear();
 	}
 	
-	public void addRenderObject(Renderable obj) {
+	public void addRenderObject(Renderable obj, int scene) {
 		renderObjects[scene].add(obj);
 	}
 	
-	public int getScene() {
-		return scene;
+	public int getCurrentScene() {
+		return currentScene;
 	}
 
 	public void setScene(int scene) {
-		this.scene = scene;
+		this.currentScene = scene;
 	}
 	
 	public int getWidth() {
@@ -55,18 +60,12 @@ public class Display extends JPanel {
 	public Display(int width, int height, Game game) {
 		this.width = width;
 		this.height = height;
+		currentScene = 0;
 		setPreferredSize(new Dimension(width, height));
-		renderObjects = new ArrayList[5];
-//		Scene 0 : Main Menu
-		renderObjects[0] = new ArrayList<Renderable>();
-//		Scene 1 : Game (Tulisan Play)
-		renderObjects[1] = new ArrayList<Renderable>();
-//		Scene 2 : Setting (Gambar Cog)
-		renderObjects[2] = new ArrayList<Renderable>();
-//		Scene 3 : ?
-		renderObjects[3] = new ArrayList<Renderable>();
-//		Scene 4 : ?
-		renderObjects[4] = new ArrayList<Renderable>();
+		renderObjects = new ArrayList[3];
+		for (int i = 0; i < 3; i++) {
+			renderObjects[i] = new ArrayList<Renderable>();
+		}
 		
 		MouseHandler handler = new MouseHandler(game);
 		addMouseListener(handler);
