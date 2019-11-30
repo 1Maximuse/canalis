@@ -1,33 +1,58 @@
 package canalis.objects;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.Timer;
+
+import canalis.Assets;
 import canalis.Clickable;
+import canalis.Display;
 import canalis.Game;
 import canalis.LevelGenerator;
 import canalis.Renderable;
+import canalis.objects.Pipe.Face;
 import canalis.objects.Pipe.Type;
 
 public class PipeGrid extends GameObject implements Renderable, Clickable {
 	
+	private Game game;
 	private Pipe[][] pipes;
 	private LevelGenerator gen;
-	private int distance;
+	private final Display display;
+	private ArrayList<Point> order;
 	private int height, width;
-	private boolean solved;
-	private BufferedImage[] texture = new BufferedImage[2];
+	private int flowCounter;
+	private int flowLimit;
+	private int startPos;
+	private final Timer flowTimer = new Timer(20, new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			doFlow();
+			flowCounter++;
+			if (flowCounter >= flowLimit) {
+				stopFlow();
+			}
+		}
+	});
 	
-	public PipeGrid(int x, int y, int height, int width) {
+	public PipeGrid(int x, int y, int height, int width, Game game, Display display) {
+		this.display = display;
+		this.game = game;
+		flowCounter = 0;
+		flowLimit = -1;
+		startPos = 0;
 		this.posX = x;
 		this.posY = y;
 		this.width = width;
 		this.height = height;
 		pipes = new Pipe[height][width];
-		distance = 0;
-		solved = false;
 		
 		Random rand = new Random();
 		gen = new LevelGenerator(height, width);
@@ -43,27 +68,56 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 				} else {
 					pipe = Type.values()[rand.nextInt(2)];
 				}
-				pipes[i][j] = new Pipe(pipe, rand.nextInt(4), 100+j*Pipe.SIZE, 100+i*Pipe.SIZE);
-				if (tiles[i][j] == 1 && pipes[i][j].getOrientation() != 0) distance++;
-				else if (tiles[i][j] == 2 && pipes[i][j].getOrientation() != 1) distance++;
-				else if (tiles[i][j] == 3 && pipes[i][j].getOrientation() != 0) distance++;
-				else if (tiles[i][j] == 4 && pipes[i][j].getOrientation() != 1) distance++;
-				else if (tiles[i][j] == 5 && pipes[i][j].getOrientation() != 2) distance++;
-				else if (tiles[i][j] == 6 && pipes[i][j].getOrientation() != 3) distance++;
+				pipes[i][j] = new Pipe(pipe, rand.nextInt(4), Game.GRID_SIZE+j*Game.GRID_SIZE, Game.GRID_SIZE+i*Game.GRID_SIZE);
 			}
 		}
-		texture[0] = Game.getTextureAtlas("pipe_start_strip11.png", 128, 128, 0, 0);
-		texture[1] = Game.getTexture("pipe_end.png");
 	}
 	
-	public boolean isSolved() {
-		return solved;
+	private void doFlow() {
+		Face from = null;
+		if (flowCounter < 11) {
+			startPos = flowCounter;
+			display.repaint();
+			return;
+		}
+		int curr = (flowCounter-11) / 11;
+		if (curr == 0) {
+			from = Face.LEFT;
+		} else {
+			int dx = order.get(curr).x - order.get(curr-1).x;
+			int dy = order.get(curr).y - order.get(curr-1).y;
+			if (dx == 0 && dy == 1) from = Face.TOP;
+			else if (dx == 0 && dy == -1) from = Face.BOTTOM;
+			else if (dx == 1 && dy == 0) from = Face.LEFT;
+			else if (dx == -1 && dy == 0) from = Face.RIGHT;
+		}
+		pipes[order.get(curr).y][order.get(curr).x].setFlowing(flowCounter % 11, from);
+//		System.out.println("flowing" + flowCounter);
+		display.repaint();
+	}
+
+	public void startFlow() {
+//		System.out.println("trying...");
+		order = gen.getOrder(pipes);
+		if (order != null) {
+			game.startFlow();
+			flowLimit = (order.size() + 1) * 11;
+//			System.out.println("valid!" + order.size());
+			flowTimer.restart();
+		}
+	}
+	
+	public void stopFlow() {
+//		System.out.println("stopped");
+		flowTimer.stop();
+		game.stopFlow();
+		flowCounter = 0;
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(texture[0], posX-Pipe.SIZE, posY, Pipe.SIZE, Pipe.SIZE, null);
-		g.drawImage(texture[1], posX+width*Pipe.SIZE, posY+height*Pipe.SIZE-Pipe.SIZE, Pipe.SIZE, Pipe.SIZE, null);
+		g.drawImage(Assets.pipeStart[startPos], posX-Game.GRID_SIZE, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+		g.drawImage(Assets.pipeEnd, posX+width*Game.GRID_SIZE, posY+height*Game.GRID_SIZE-Game.GRID_SIZE, Game.GRID_SIZE, Game.GRID_SIZE, null);
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				pipes[i][j].render(g);
@@ -75,37 +129,16 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 	public void onClick(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		x -= 100;
-		y -= 100;
-		x /= Pipe.SIZE;
-		y /= Pipe.SIZE;
-		boolean prevcorrect = false;
-		if (pipes[y][x].getType() == Type.STRAIGHT && pipes[y][x].getOrientation() == 0 && gen.getTiles()[y][x] == 1
-				|| pipes[y][x].getType() == Type.STRAIGHT && pipes[y][x].getOrientation() == 1 && gen.getTiles()[y][x] == 2
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 0 && gen.getTiles()[y][x] == 3
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 1 && gen.getTiles()[y][x] == 4
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 2 && gen.getTiles()[y][x] == 5
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 3 && gen.getTiles()[y][x] == 6) {
-			prevcorrect = true;
-		}
+		x -= Game.GRID_SIZE;
+		y -= Game.GRID_SIZE;
+		x /= Game.GRID_SIZE;
+		y /= Game.GRID_SIZE;
 		pipes[y][x].onClick(e);
-		boolean nowcorrect = false;
-		if (pipes[y][x].getType() == Type.STRAIGHT && pipes[y][x].getOrientation() == 0 && gen.getTiles()[y][x] == 1
-				|| pipes[y][x].getType() == Type.STRAIGHT && pipes[y][x].getOrientation() == 1 && gen.getTiles()[y][x] == 2
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 0 && gen.getTiles()[y][x] == 3
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 1 && gen.getTiles()[y][x] == 4
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 2 && gen.getTiles()[y][x] == 5
-				|| pipes[y][x].getType() == Type.BEND && pipes[y][x].getOrientation() == 3 && gen.getTiles()[y][x] == 6) {
-			nowcorrect = true;
-		}
-		if (prevcorrect && !nowcorrect) distance++;
-		else if (!prevcorrect && nowcorrect) distance--;
-		if (distance == 0) solved = true;
 	}
 
 	@Override
 	public boolean isInside(int x, int y) {
-		if (x > 100 && x < 100 + width*Pipe.SIZE && y > 100 && y < 100 + height*Pipe.SIZE) return true;
+		if (x > Game.GRID_SIZE && x < Game.GRID_SIZE + width*Game.GRID_SIZE && y > Game.GRID_SIZE && y < Game.GRID_SIZE + height*Game.GRID_SIZE) return true;
 		else return false;
 	}
 
