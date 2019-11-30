@@ -15,7 +15,6 @@ public class Display extends JPanel {
 	private final int width;
 	private final int height;
 	
-	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -26,6 +25,10 @@ public class Display extends JPanel {
 	
 	public ArrayList<Renderable> getRenderObjects() {
 		return renderObjects[scene];
+	}
+	
+	public void clearRenderObject() {
+		renderObjects[scene].clear();
 	}
 	
 	public void addRenderObject(Renderable obj) {

@@ -1,14 +1,13 @@
-package canalis.objects;
+package canalis.scene;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import canalis.Clickable;
+import canalis.Display;
 import canalis.Game;
 import canalis.Renderable;
-import canalis.Display;
 
 public class MainMenu implements Renderable, Clickable {
 	private BufferedImage[] texture = new BufferedImage[5];
@@ -22,7 +21,7 @@ public class MainMenu implements Renderable, Clickable {
 		texture[2] = Game.getTexture("main_menu/cog.png");
 		texture[3] = Game.getTexture("main_menu/play.png");
 	}
-	
+
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(texture[0], display.getWidth()-(2507/2), display.getHeight()-(1112/2), 2507, 1112, null);

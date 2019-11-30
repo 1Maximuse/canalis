@@ -9,31 +9,46 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import canalis.objects.Faucet;
-import canalis.objects.MainMenu;
 import canalis.objects.Pipe;
 import canalis.objects.PipeGrid;
+import canalis.scene.MainMenu;
+import canalis.scene.Setting;
 
 public class Game implements Runnable {
 
 	private Display display;
-	
-	PipeGrid grid;
+	PipeGrid pipegrid;
 	Faucet faucet;
 	MainMenu mainmenu;
+	Setting setting;
 	
 	@Override
 	public void run() {
 		display = new Display(640, 480, this);
+		
 		display.setScene(0);
 		mainmenu = new MainMenu(display);
 		display.addRenderObject(mainmenu);
 		
 		display.setScene(1);
-		grid = new PipeGrid(100, 100, 3, 5);
+		pipegrid = new PipeGrid(100, 100, 3, 5);
 		faucet = new Faucet(100 - Pipe.SIZE, 100 - Pipe.SIZE - 10, display);
-		display.addRenderObject(grid);
+		display.addRenderObject(pipegrid);
 		display.addRenderObject(faucet);
 		
+		display.setScene(2);
+		setting = new Setting(display, this);
+		display.addRenderObject(setting);
+		
+		display.setScene(0);
+	}
+	
+	public void setPipeGrid(int x, int y, int width, int height) {
+		display.setScene(1);
+		display.clearRenderObject();
+		this.pipegrid = new PipeGrid(100, 100, width, height);
+		display.addRenderObject(pipegrid);
+		display.addRenderObject(faucet);
 		display.setScene(0);
 	}
 	
@@ -45,12 +60,11 @@ public class Game implements Runnable {
 				if (inputObject.isInside(e.getX(), e.getY())) {
 					inputObject.onClick(e);
 				}
-//				inputObject.onClick(e);
 			}
 		}
 		display.repaint();
 	}
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Game());
 	}
