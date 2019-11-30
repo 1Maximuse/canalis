@@ -10,27 +10,60 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Display extends JPanel {
 	
-	private ArrayList<Renderable> renderObjects;
+	private ArrayList<Renderable> renderObjects[];
+	private int scene = 0;
+	private final int width;
+	private final int height;
+	
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (Renderable obj : renderObjects) {
+		for (Renderable obj : renderObjects[scene]) {
 			obj.render(g);
 		}
 	}
 	
 	public ArrayList<Renderable> getRenderObjects() {
-		return renderObjects;
+		return renderObjects[scene];
 	}
 	
 	public void addRenderObject(Renderable obj) {
-		renderObjects.add(obj);
+		renderObjects[scene].add(obj);
 	}
 	
+	public int getScene() {
+		return scene;
+	}
+
+	public void setScene(int scene) {
+		this.scene = scene;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	@SuppressWarnings("unchecked")
 	public Display(int width, int height, Game game) {
+		this.width = width;
+		this.height = height;
 		setPreferredSize(new Dimension(width, height));
-		renderObjects = new ArrayList<Renderable>();
+		renderObjects = new ArrayList[5];
+//		Scene 0 : Main Menu
+		renderObjects[0] = new ArrayList<Renderable>();
+//		Scene 1 : Game (Tulisan Play)
+		renderObjects[1] = new ArrayList<Renderable>();
+//		Scene 2 : Setting (Gambar Cog)
+		renderObjects[2] = new ArrayList<Renderable>();
+//		Scene 3 : ?
+		renderObjects[3] = new ArrayList<Renderable>();
+//		Scene 4 : ?
+		renderObjects[4] = new ArrayList<Renderable>();
 		
 		MouseHandler handler = new MouseHandler(game);
 		addMouseListener(handler);
@@ -44,4 +77,5 @@ public class Display extends JPanel {
 		frame.pack();
 		frame.setVisible(true);
 	}
+
 }
