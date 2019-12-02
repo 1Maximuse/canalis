@@ -43,17 +43,17 @@ public class SceneSettings extends Scene {
 			display.setScene(0);
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
 			y >= (display.getHeight()/2)-100 && y <= (display.getHeight()/2)-100+60) {
-			game.setPipeGrid(100, 100, 3, 5);
+			game.setPipeGrid(5, 3);
 			display.setScene(0);
 		}
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
 			y >= (display.getHeight()/2) && y <= (display.getHeight()/2)+60) {
-			game.setPipeGrid(100, 100, 5, 7);
+			game.setPipeGrid(7, 5);
 			display.setScene(0);
 		}
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
 			y >= (display.getHeight()/2)+100 && y <= (display.getHeight()/2)+100+60) {
-			game.setPipeGrid(100, 100, 7, 10);
+			game.setPipeGrid(10, 7);
 			display.setScene(0);
 			}
 	}

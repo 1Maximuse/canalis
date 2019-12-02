@@ -11,6 +11,7 @@ import canalis.scene.SceneSettings;
 
 public class Game implements Runnable {
 
+	public static final int PADDING = 100;
 	public static int GRID_SIZE;
 	private Display display;
 	PipeGrid pipeGrid;
@@ -32,14 +33,14 @@ public class Game implements Runnable {
 	
 	@Override
 	public void run() {
-		GRID_SIZE = 1280 / 10;
 		Assets.loadTextures();
 		display = new Display(1280, 720, this);
+		GRID_SIZE = Math.min((display.getWidth() - 2*PADDING) / 7, (display.getHeight() - 2*PADDING) / 3);
 		
 		mainmenu = new SceneMainMenu(display);
 		display.addRenderObject(mainmenu, 0);
 
-		pipeGrid = new PipeGrid(GRID_SIZE, GRID_SIZE, 3, 5, this, display);
+		pipeGrid = new PipeGrid((display.getWidth() - 5*GRID_SIZE) / 2, (display.getHeight() - 3*GRID_SIZE) / 2, 5, 3, this, display);
 		faucet = new Faucet(0, 0, this, display);
 		display.addRenderObject(pipeGrid, 1);
 		display.addRenderObject(faucet, 1);
@@ -50,10 +51,10 @@ public class Game implements Runnable {
 		display.setScene(0);
 	}
 	
-	public void setPipeGrid(int x, int y, int height, int width) {
+	public void setPipeGrid(int width, int height) {
 		display.clearRenderObject(1);
-		GRID_SIZE = 800 / Math.max(width, height);
-		this.pipeGrid = new PipeGrid(GRID_SIZE, GRID_SIZE, height, width, this, display);
+		GRID_SIZE = Math.min((display.getWidth() - 2*PADDING) / (width + 2), (display.getHeight() - 2*PADDING) / height);
+		this.pipeGrid = new PipeGrid((display.getWidth() - width*GRID_SIZE) / 2, (display.getHeight() - height*GRID_SIZE) / 2, width, height, this, display);
 		display.addRenderObject(pipeGrid, 1);
 		display.addRenderObject(faucet, 1);
 		display.setScene(0);

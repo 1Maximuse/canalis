@@ -42,7 +42,7 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 		}
 	});
 	
-	public PipeGrid(int x, int y, int height, int width, Game game, Display display) {
+	public PipeGrid(int x, int y, int width, int height, Game game, Display display) {
 		this.display = display;
 		this.game = game;
 		flowCounter = 0;
@@ -68,7 +68,7 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 				} else {
 					pipe = Type.values()[rand.nextInt(2)];
 				}
-				pipes[i][j] = new Pipe(pipe, rand.nextInt(4), Game.GRID_SIZE+j*Game.GRID_SIZE, Game.GRID_SIZE+i*Game.GRID_SIZE);
+				pipes[i][j] = new Pipe(pipe, rand.nextInt(4), posX+j*Game.GRID_SIZE, posY+i*Game.GRID_SIZE);
 			}
 		}
 	}
@@ -129,8 +129,8 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 	public void onClick(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		x -= Game.GRID_SIZE;
-		y -= Game.GRID_SIZE;
+		x -= posX;
+		y -= posY;
 		x /= Game.GRID_SIZE;
 		y /= Game.GRID_SIZE;
 		pipes[y][x].onClick(e);
@@ -138,7 +138,7 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 
 	@Override
 	public boolean isInside(int x, int y) {
-		if (x > Game.GRID_SIZE && x < Game.GRID_SIZE + width*Game.GRID_SIZE && y > Game.GRID_SIZE && y < Game.GRID_SIZE + height*Game.GRID_SIZE) return true;
+		if (x > posX && x < posX + width*Game.GRID_SIZE && y > posY && y < posY + height*Game.GRID_SIZE) return true;
 		else return false;
 	}
 
