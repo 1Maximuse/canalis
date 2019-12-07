@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import canalis.objects.Faucet;
 import canalis.objects.PipeGrid;
 import canalis.scene.SceneMainMenu;
+import canalis.scene.SceneResult;
 import canalis.scene.SceneSettings;
 
 public class Game implements Runnable {
@@ -18,6 +19,7 @@ public class Game implements Runnable {
 	Faucet faucet;
 	SceneMainMenu mainmenu;
 	SceneSettings setting;
+	SceneResult result;
 	
 	public void tryFlow() {
 		pipeGrid.startFlow();
@@ -40,7 +42,7 @@ public class Game implements Runnable {
 		mainmenu = new SceneMainMenu(display);
 		display.addRenderObject(mainmenu, 0);
 
-		pipeGrid = new PipeGrid((display.getWidth() - 5*GRID_SIZE) / 2, (display.getHeight() - 3*GRID_SIZE) / 2, 5, 3, this, display);
+		pipeGrid = new PipeGrid((display.getWidth() - 6*GRID_SIZE) / 2, (display.getHeight() - 4*GRID_SIZE) / 2, 6, 4, this, display);
 		faucet = new Faucet(0, 0, this, display);
 		display.addRenderObject(pipeGrid, 1);
 		display.addRenderObject(faucet, 1);
@@ -48,7 +50,10 @@ public class Game implements Runnable {
 		setting = new SceneSettings(display, this);
 		display.addRenderObject(setting, 2);
 		
-		display.setScene(0);
+		result = new SceneResult(display);
+		display.addRenderObject(result, 3);
+		
+		display.setScene(3);
 	}
 	
 	public void setPipeGrid(int width, int height) {
@@ -57,7 +62,6 @@ public class Game implements Runnable {
 		this.pipeGrid = new PipeGrid((display.getWidth() - width*GRID_SIZE) / 2, (display.getHeight() - height*GRID_SIZE) / 2, width, height, this, display);
 		display.addRenderObject(pipeGrid, 1);
 		display.addRenderObject(faucet, 1);
-		display.setScene(0);
 	}
 	
 	public void mousePressed(MouseEvent e) {

@@ -10,7 +10,14 @@ public class Assets {
 	public static BufferedImage background;
 	public static BufferedImage logo;
 	public static BufferedImage options;
+	public static BufferedImage back;	
 	public static BufferedImage playButton;
+	public static BufferedImage beginnerButton;
+	public static BufferedImage intermediateButton;
+	public static BufferedImage masterButton;
+	public static BufferedImage toMainMenu;
+	public static BufferedImage retry;
+	
 	
 	public static BufferedImage pipeHorizontal;
 	public static BufferedImage pipeVertical;
@@ -43,7 +50,14 @@ public class Assets {
 		background = getTexture("main_menu/background.png");
 		logo = getTexture("main_menu/logo.png");
 		options = getTexture("main_menu/options.png");
-		playButton = getTexture("main_menu/play.png");
+		back = getTexture("main_menu/back.png");
+		playButton = getTexture("main_menu/playbutton.png");
+		beginnerButton = getTexture("main_menu/beginner.png");
+		intermediateButton = getTexture("main_menu/intermediate.png");
+		masterButton = getTexture("main_menu/master.png");
+		toMainMenu = getTexture("main_menu/tomainmenu.png");
+		retry = getTexture("main_menu/retry.png");
+		
 		
 		pipeHorizontal = getTexture("horizontal/pipe_horizontal.png");
 		pipeVertical = getTexture("vertical/pipe_vertical.png");

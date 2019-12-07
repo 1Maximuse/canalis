@@ -14,6 +14,7 @@ public class Display extends JPanel {
 	 * Scene 0: Main Menu
 	 * Scene 1: Game
 	 * Scene 2: Settings
+	 * Scene 3: Result
 	 */
 	private ArrayList<Renderable>[] renderObjects;
 	private int currentScene = 0;
@@ -62,8 +63,8 @@ public class Display extends JPanel {
 		this.height = height;
 		currentScene = 0;
 		setPreferredSize(new Dimension(width, height));
-		renderObjects = new ArrayList[3];
-		for (int i = 0; i < 3; i++) {
+		renderObjects = new ArrayList[4];
+		for (int i = 0; i < 4; i++) {
 			renderObjects[i] = new ArrayList<Renderable>();
 		}
 		
