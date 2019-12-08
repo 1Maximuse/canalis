@@ -11,4 +11,12 @@ public abstract class GameObject {
 	public int getPosY() {
 		return posY;
 	}
+	
+	public void setPosX(int x) {
+		this.posX = x;
+	}
+	
+	public void setPosY(int y) {
+		this.posY = y;
+	}
 }

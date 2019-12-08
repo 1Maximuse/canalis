@@ -24,7 +24,9 @@ public class SceneSettings extends Scene {
 	@Override
 	public void render(Graphics g) {
 		int bgPadding = 100;
-		g.drawImage(Assets.background, -bgPadding, -bgPadding, 2*bgPadding + display.getWidth(), 2*bgPadding + display.getHeight(), null);
+		double bgScale = (double)(display.getWidth() + 2*bgPadding) / Assets.background.getWidth();
+		bgScale = Math.max(bgScale, (double)(display.getHeight() + 2*bgPadding) / Assets.background.getHeight());
+		g.drawImage(Assets.background, (int)(-bgPadding / bgScale), (int)(-bgPadding / bgScale), (int)(Assets.background.getWidth() * bgScale), (int)(Assets.background.getHeight() * bgScale), null);
 		
 		g.setFont(new Font("Algerian", Font.PLAIN, 70));
 		g.setColor(Color.BLACK);
@@ -34,28 +36,25 @@ public class SceneSettings extends Scene {
 		g.drawImage(Assets.beginnerButton, (display.getWidth()/2)-(200/2), (display.getHeight()/2)-120, 200, 80, null);
 		g.drawImage(Assets.intermediateButton, (display.getWidth()/2)-(200/2), (display.getHeight()/2), 200, 80, null);
 		g.drawImage(Assets.masterButton, (display.getWidth()/2)-(200/2), (display.getHeight()/2)+120, 200, 80, null);
-		g.drawImage(Assets.back, 5, 10, 50, 50, null);
 	}
 
 	@Override
 	public void onClick(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		 
-		if (x >= 5 && x <= 5+50 && y >= 10 && y <= 10+50)
-			display.setScene(0);
+
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
-			y >= (display.getHeight()/2)-100 && y <= (display.getHeight()/2)-100+60) {
-			game.setPipeGrid(6, 4); 
+			y >= (display.getHeight()/2)-120 && y <= (display.getHeight()/2)-120+80) {
+			game.setPipeGrid(6, 4);
 			selectedy = (display.getHeight()/2)-120-10;
 		}
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
-			y >= (display.getHeight()/2) && y <= (display.getHeight()/2)+60) {
+			y >= (display.getHeight()/2) && y <= (display.getHeight()/2)+80) {
 			game.setPipeGrid(8, 5);
 			selectedy = (display.getHeight()/2)-10;
 		}
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
-			y >= (display.getHeight()/2)+100 && y <= (display.getHeight()/2)+100+60) {
+			y >= (display.getHeight()/2)+120 && y <= (display.getHeight()/2)+120+80) {
 			game.setPipeGrid(10, 7);
 			selectedy = (display.getHeight()/2)+120-10;
 			}
