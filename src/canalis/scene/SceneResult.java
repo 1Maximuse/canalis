@@ -54,7 +54,7 @@ public class SceneResult extends Scene {
 		if (x >= (display.getWidth()/3*1)-(200/2) && x <= (display.getWidth()/3*1)-(200/2)+200 && 
 			y >= (display.getHeight()/3*2) && y <= (display.getHeight()/3*2)+80) {
 			
-			game.setPipeGrid(game.getGridX(), game.getGridY());
+			game.resetPipeGrid();
 			display.setScene(1);
 			clock.reset();
 		}
@@ -62,7 +62,7 @@ public class SceneResult extends Scene {
 		if (x >= (display.getWidth()/3*2)-(200/2) && x <= (display.getWidth()/3*2)-(200/2)+200 && 
 			y >= (display.getHeight()/3*2) && y <= (display.getHeight()/3*2)+80) {
 
-			game.setPipeGrid(game.getGridX(), game.getGridY());
+			game.resetPipeGrid();
 			display.setScene(0);
 		}
 			

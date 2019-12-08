@@ -5,15 +5,15 @@ import java.awt.event.MouseEvent;
 
 import canalis.Assets;
 import canalis.Display;
-import canalis.objects.Clock;
+import canalis.Game;
 
 public class SceneMainMenu extends Scene {
 	
-	private final Clock clock;
+	private final Game game;
 	
-	public SceneMainMenu(Display display, Clock clock) {
+	public SceneMainMenu(Game game, Display display) {
 		super(display);
-		this.clock = clock;
+		this.game = game;
 	}
 
 	@Override
@@ -35,8 +35,9 @@ public class SceneMainMenu extends Scene {
 		 
 		if (x >= (display.getWidth()/2)-(200/2) && x <= (display.getWidth()/2)-(200/2)+200 &&
 				y >= (display.getHeight()/2)+50 && y <= (display.getHeight()/2)+50+60) {
+
+			game.resetPipeGrid();
 			display.setScene(1);
-			clock.reset();
 		}
 		if (x >= (display.getWidth()-55) && x <= (display.getWidth()-55)+50 && y >= 10 && y <= 10+50)
 			display.setScene(2);

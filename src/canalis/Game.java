@@ -49,7 +49,7 @@ public class Game implements Runnable {
 		
 		clock = new Clock(0, 100, display);
 		
-		mainmenu = new SceneMainMenu(display, clock);
+		mainmenu = new SceneMainMenu(this, display);
 		display.addRenderObject(mainmenu, 0);
 		
 		gridX = 6;
@@ -71,12 +71,8 @@ public class Game implements Runnable {
 		display.setScene(0);
 	}
 	
-	public int getGridX() {
-		return gridX;
-	}
-	
-	public int getGridY() {
-		return gridY;
+	public void resetPipeGrid() {
+		setPipeGrid(gridX, gridY);
 	}
 	
 	public void setPipeGrid(int width, int height) {
