@@ -3,6 +3,7 @@ package canalis.scene;
 import canalis.Assets;
 import canalis.Display;
 import canalis.Game;
+import canalis.objects.Background;
 import canalis.objects.ButtonChangeScene;
 import canalis.objects.ButtonSetting;
 import canalis.objects.SettingOverlay;
@@ -16,6 +17,7 @@ public class SceneSettings extends Scene {
 	public SceneSettings(Game game, Display display) {
 		super(game, display);
 		diff = game.getDifficulty();
+		addSceneObject(new Background(display));
 		addSceneObject(new ButtonChangeScene(display, 10, 10, 50, 50, 0, Assets.back));
 		addSceneObject(overlay = new SettingOverlay((display.getWidth()/2)-(200/2)-10, (display.getHeight()/2)-10, diff));
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)-120, Difficulty.EASY, this));
