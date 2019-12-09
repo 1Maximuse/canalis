@@ -5,15 +5,15 @@ import java.awt.event.MouseEvent;
 
 public class MouseHandler extends MouseAdapter {
 	
-	private Game game;
+	private final Display display;
 	
-	public MouseHandler(Game game) {
-		this.game = game;
+	public MouseHandler(Display display) {
+		this.display = display;
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		super.mousePressed(e);
-		game.mousePressed(e);
+		display.mousePressed(e.getX(), e.getY());
 	}
 }

@@ -3,6 +3,7 @@ package canalis.objects;
 public abstract class GameObject {
 	
 	protected int posX, posY;
+	protected int width, height;
 	
 	public int getPosX() {
 		return posX;

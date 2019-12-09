@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import canalis.scene.Scene;
+
 @SuppressWarnings("serial")
 public class Display extends JPanel {
 	
@@ -16,7 +18,7 @@ public class Display extends JPanel {
 	 * Scene 2: Settings
 	 * Scene 3: Result
 	 */
-	private ArrayList<Renderable>[] renderObjects;
+	private ArrayList<Scene> scenes;
 	private int currentScene = 0;
 	private final int width;
 	private final int height;
@@ -24,25 +26,18 @@ public class Display extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (Renderable obj : renderObjects[currentScene]) {
+		for (Renderable obj : scenes.get(currentScene).getSceneObjects()) {
 			obj.render(g);
 		}
 	}
 	
-	public ArrayList<Renderable> getRenderObjects(int scene) {
-		return renderObjects[scene];
+	public int addScene(Scene scene) {
+		scenes.add(scene);
+		return scenes.size()-1;
 	}
 	
-	public void clearRenderObject(int scene) {
-		renderObjects[scene].clear();
-	}
-	
-	public void addRenderObject(Renderable obj, int scene) {
-		renderObjects[scene].add(obj);
-	}
-	
-	public int getCurrentScene() {
-		return currentScene;
+	public Scene getCurrentScene() {
+		return scenes.get(currentScene);
 	}
 
 	public void setScene(int scene) {
@@ -56,19 +51,27 @@ public class Display extends JPanel {
 	public int getHeight() {
 		return height;
 	}
+	
+	public void mousePressed(int x, int y) {
+		for (Renderable renderObject : scenes.get(currentScene).getSceneObjects()) {
+			if (renderObject instanceof Clickable) {
+				Clickable inputObject = (Clickable)renderObject;
+				if (inputObject.isInside(x, y)) {
+					inputObject.onClick(x, y);
+				}
+			}
+		}
+		repaint();
+	}
 
-	@SuppressWarnings("unchecked")
 	public Display(int width, int height, Game game) {
 		this.width = width;
 		this.height = height;
 		currentScene = 0;
 		setPreferredSize(new Dimension(width, height));
-		renderObjects = new ArrayList[4];
-		for (int i = 0; i < 4; i++) {
-			renderObjects[i] = new ArrayList<Renderable>();
-		}
+		scenes = new ArrayList<Scene>();
 		
-		MouseHandler handler = new MouseHandler(game);
+		MouseHandler handler = new MouseHandler(this);
 		addMouseListener(handler);
 		addMouseMotionListener(handler);
 		addMouseWheelListener(handler);

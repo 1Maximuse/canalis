@@ -1,28 +1,32 @@
 package canalis.scene;
 
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-import canalis.Clickable;
 import canalis.Display;
+import canalis.Game;
 import canalis.Renderable;
 
-public abstract class Scene implements Renderable, Clickable {
+public abstract class Scene {
 	
+	protected final Game game;
 	protected final Display display;
-
-	public Scene(Display display) {
-		 this.display = display;
+	private ArrayList<Renderable> sceneObjects;
+	
+	public Scene(Game game, Display display) {
+		this.game = game;
+		this.display = display;
+		sceneObjects = new ArrayList<Renderable>();
 	}
-
-	@Override
-	public final boolean isInside(int x, int y) {
-		return true;
+	
+	public ArrayList<Renderable> getSceneObjects() {
+		return sceneObjects;
 	}
-
-	@Override
-	public abstract void onClick(MouseEvent e);
-
-	@Override
-	public abstract void render(Graphics g);
+	
+	public void clearSceneObjects() {
+		sceneObjects.clear();
+	}
+	
+	public void addSceneObject(Renderable object) {
+		sceneObjects.add(object);
+	}
 }

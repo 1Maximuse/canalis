@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,10 +17,11 @@ import canalis.LevelGenerator;
 import canalis.Renderable;
 import canalis.objects.Pipe.Face;
 import canalis.objects.Pipe.Type;
+import canalis.scene.SceneGame;
 
 public class PipeGrid extends GameObject implements Renderable, Clickable {
 	
-	private Game game;
+	private SceneGame game;
 	private Pipe[][] pipes;
 	private LevelGenerator gen;
 	private final Display display;
@@ -42,7 +42,7 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 		}
 	});
 	
-	public PipeGrid(int x, int y, int width, int height, Game game, Display display) {
+	public PipeGrid(int x, int y, int width, int height, SceneGame game, Display display) {
 		this.display = display;
 		this.game = game;
 		flowCounter = 0;
@@ -126,14 +126,12 @@ public class PipeGrid extends GameObject implements Renderable, Clickable {
 	}
 
 	@Override
-	public void onClick(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
+	public void onClick(int x, int y) {
 		x -= posX;
 		y -= posY;
 		x /= Game.GRID_SIZE;
 		y /= Game.GRID_SIZE;
-		pipes[y][x].onClick(e);
+		pipes[y][x].onClick(x, y);
 	}
 
 	@Override

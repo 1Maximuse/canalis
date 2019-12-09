@@ -1,7 +1,6 @@
 package canalis.objects;
 
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import canalis.Assets;
@@ -66,7 +65,7 @@ public class Pipe extends GameObject implements Renderable, Clickable {
 	}
 
 	@Override
-	public void onClick(MouseEvent e) {
+	public void onClick(int x, int y) {
 		rotate();
 	}
 	
