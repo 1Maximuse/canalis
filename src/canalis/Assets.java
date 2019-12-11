@@ -66,10 +66,10 @@ public class Assets {
 			e.printStackTrace();
 		}
 		
-		background = getTexture("background.png");
-		logo = getTexture("main_menu/logo.png");
-		buttonOptions = getTexture("main_menu/options.png");
-		buttonBack = getTexture("main_menu/back.png");
+		background = getTexture("ui/background.png");
+		logo = getTexture("ui/logo.png");
+		buttonOptions = getTexture("ui/button_options.png");
+		buttonBack = getTexture("ui/button_back.png");
 		buttonPlayCasual = getTexture("ui/button_casual.png");
 		
 		buttonDifficultyEasy = getTexture("ui/button_difficulty1.png");
@@ -110,7 +110,7 @@ public class Assets {
 		pipeEnd = getTexture("pipe_end.png");
 		
 		for (int i = 0; i < 8; i++) {
-			faucet[i] = getTextureAtlas("items/wheel.png", 128, 128, i, 0);
+			faucet[i] = getTextureAtlas("wheel_strip8.png", 128, 128, i, 0);
 		}
 	}
 	
