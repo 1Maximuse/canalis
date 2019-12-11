@@ -7,6 +7,7 @@ import canalis.objects.Background;
 import canalis.objects.ButtonChangeScene;
 import canalis.objects.ButtonSetting;
 import canalis.objects.SettingOverlay;
+import canalis.objects.TextCentered;
 import canalis.scene.SceneGame.Difficulty;
 
 public class SceneSettings extends Scene {
@@ -18,11 +19,12 @@ public class SceneSettings extends Scene {
 		super(game, display);
 		diff = game.getDifficulty();
 		addSceneObject(new Background(display));
-		addSceneObject(new ButtonChangeScene(display, 10, 10, 50, 50, 0, Assets.back));
+		addSceneObject(new ButtonChangeScene(display, 10, 10, 50, 50, 0, Assets.buttonBack));
 		addSceneObject(overlay = new SettingOverlay((display.getWidth()/2)-(200/2)-10, (display.getHeight()/2)-10, diff));
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)-120, Difficulty.EASY, this));
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), display.getHeight()/2, Difficulty.MEDIUM, this));
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)+120, Difficulty.HARD, this));
+		addSceneObject(new TextCentered(display, 200, Assets.font.deriveFont(60.0f), Assets.colorMain, "Select Difficulty"));
 	}
 	
 	public void setDifficulty(Difficulty diff) {

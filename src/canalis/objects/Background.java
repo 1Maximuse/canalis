@@ -8,6 +8,7 @@ import canalis.Renderable;
 
 public class Background implements Renderable {
 	
+	private static final int SIZE = 300;
 	private final Display display;
 	
 	public Background(Display display) {
@@ -16,6 +17,10 @@ public class Background implements Renderable {
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.background, (int)((Assets.background.getWidth() - display.getWidth()) / -2.0), (int)((Assets.background.getHeight() - display.getHeight()) / -2.0), null);
+		for (int i = 0; i < display.getHeight() / SIZE + 1; i++) {
+			for (int j = 0; j < display.getWidth() / SIZE + 1; j++) {
+				g.drawImage(Assets.background, SIZE*j, SIZE*i, SIZE, SIZE, null);
+			}
+		}
 	}
 }

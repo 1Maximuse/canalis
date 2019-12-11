@@ -1,7 +1,5 @@
 package canalis.scene;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.util.Random;
 
 import canalis.Assets;
@@ -24,10 +22,10 @@ public class SceneResult extends Scene {
 		super(game, display);
 		rng = new Random();
 		random = rng.nextInt(3);
-		addSceneObject(win = new TextCentered(display, 150, new Font("Algerian", Font.PLAIN, 70), Color.BLACK, result[random]));
-		addSceneObject(gameResult = new TextCentered(display, 300, new Font("Segoe Print", Font.PLAIN, 40), Color.BLACK, ""));
-		addSceneObject(retry = new ButtonChangeScene(display, (display.getWidth()/3*1)-(200/2), (display.getHeight()/3*2), 200, 80, 1, Assets.retry));
-		addSceneObject(new ButtonChangeScene(display, (display.getWidth()/3*2)-(200/2), (display.getHeight()/3*2), 200, 80, 0, Assets.toMainMenu));
+		addSceneObject(win = new TextCentered(display, 150, Assets.font.deriveFont(100.0f), Assets.colorMain, result[random]));
+		addSceneObject(gameResult = new TextCentered(display, 300, Assets.fontSecondary.deriveFont(40.0f), Assets.colorMain, ""));
+		addSceneObject(retry = new ButtonChangeScene(display, (display.getWidth()/3*1)-(200/2), (display.getHeight()/3*2), 200, 80, 1, Assets.buttonRetry));
+		addSceneObject(new ButtonChangeScene(display, (display.getWidth()/3*2)-(200/2), (display.getHeight()/3*2), 200, 80, 0, Assets.buttonMainMenu));
 	}
 	
 	public void randomize() {

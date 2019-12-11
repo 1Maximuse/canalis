@@ -11,7 +11,7 @@ public class ButtonSetting extends Button {
 	private final Difficulty diff;
 
 	public ButtonSetting(Display display, int x, int y, Difficulty diff, SceneSettings settings) {
-		super(display, x, y, 200, 80, diff == Difficulty.EASY ? Assets.beginnerButton : diff == Difficulty.MEDIUM ? Assets.intermediateButton : Assets.masterButton);
+		super(display, x, y, 200, 80, diff == Difficulty.EASY ? Assets.buttonDifficultyEasy : diff == Difficulty.MEDIUM ? Assets.buttonDifficultyMedium : Assets.buttonDifficultyHard);
 		this.diff = diff;
 		this.settings = settings;
 	}

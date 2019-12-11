@@ -1,22 +1,31 @@
 package canalis;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class Assets {
 	
+	public static Color colorMain;
+	
+	public static Font font;
+	public static Font fontSecondary;
+	
 	public static BufferedImage background;
 	public static BufferedImage logo;
-	public static BufferedImage options;
-	public static BufferedImage back;	
-	public static BufferedImage playButton;
-	public static BufferedImage beginnerButton;
-	public static BufferedImage intermediateButton;
-	public static BufferedImage masterButton;
-	public static BufferedImage toMainMenu;
-	public static BufferedImage retry;
+	
+	public static BufferedImage buttonOptions;
+	public static BufferedImage buttonBack;	
+	public static BufferedImage buttonPlayCasual;
+	public static BufferedImage buttonDifficultyEasy;
+	public static BufferedImage buttonDifficultyMedium;
+	public static BufferedImage buttonDifficultyHard;
+	public static BufferedImage buttonMainMenu;
+	public static BufferedImage buttonRetry;
 	
 	
 	public static BufferedImage pipeHorizontal;
@@ -47,16 +56,28 @@ public class Assets {
 	public static BufferedImage[] faucet = new BufferedImage[8];
 	
 	public static void loadTextures() {
-		background = getTexture("main_menu/background.png");
-		logo = getTexture("main_menu/logo.png");
-		options = getTexture("main_menu/options.png");
-		back = getTexture("main_menu/back.png");
-		playButton = getTexture("main_menu/playbutton.png");
-		beginnerButton = getTexture("main_menu/beginner.png");
-		intermediateButton = getTexture("main_menu/intermediate.png");
-		masterButton = getTexture("main_menu/master.png");
-		toMainMenu = getTexture("main_menu/tomainmenu.png");
-		retry = getTexture("main_menu/retry.png");
+		colorMain = new Color(20, 21, 24);
+		
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File(Game.class.getResource("/textures/ui/font.ttf").toURI()));
+			fontSecondary = Font.createFont(Font.TRUETYPE_FONT, new File(Game.class.getResource("/textures/ui/font2.ttf").toURI()));
+		} catch (Exception e) {
+			System.err.println("Cannot get font!");
+			e.printStackTrace();
+		}
+		
+		background = getTexture("ui/background.png");
+		logo = getTexture("ui/logo.png");
+		buttonOptions = getTexture("ui/button_options.png");
+		buttonBack = getTexture("ui/button_back.png");
+		buttonPlayCasual = getTexture("ui/button_casual.png");
+		
+		buttonDifficultyEasy = getTexture("ui/button_difficulty1.png");
+		buttonDifficultyMedium = getTexture("ui/button_difficulty2.png");
+		buttonDifficultyHard = getTexture("ui/button_difficulty3.png");
+		
+		buttonMainMenu = getTexture("ui/button_mainmenu.png");
+		buttonRetry = getTexture("ui/button_retry.png");
 		
 		
 		pipeHorizontal = getTexture("horizontal/pipe_horizontal.png");
@@ -89,7 +110,7 @@ public class Assets {
 		pipeEnd = getTexture("pipe_end.png");
 		
 		for (int i = 0; i < 8; i++) {
-			faucet[i] = getTextureAtlas("items/wheel.png", 128, 128, i, 0);
+			faucet[i] = getTextureAtlas("wheel_strip8.png", 128, 128, i, 0);
 		}
 	}
 	

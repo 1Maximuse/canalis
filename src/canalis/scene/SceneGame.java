@@ -21,7 +21,7 @@ public class SceneGame extends Scene {
 		currentDifficulty = diff;
 		this.clock = clock;
 		faucet = new Faucet((display.getWidth() - 8*Game.GRID_SIZE) / 2, (display.getHeight() - 2*Game.GRID_SIZE) / 2, this, display);
-		back = new ButtonChangeScene(display, 10, 10, 50, 50, 0, Assets.back);
+		back = new ButtonChangeScene(display, 10, 10, 50, 50, 0, Assets.buttonBack);
 		newGrid(true);
 	}
 	
