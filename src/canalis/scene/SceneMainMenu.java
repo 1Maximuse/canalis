@@ -13,7 +13,7 @@ public class SceneMainMenu extends Scene {
 		super(game, display);
 		addSceneObject(new Background(display));
 		addSceneObject(new Logo(display));
-		addSceneObject(new ButtonChangeScene(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)+50, 200, 80, 1, Assets.playButton));
-		addSceneObject(new ButtonChangeScene(display, (display.getWidth()-55), 10, 50, 50, 2, Assets.options));
+		addSceneObject(new ButtonChangeScene(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)+50, 200, 80, 1, Assets.buttonPlayCasual));
+		addSceneObject(new ButtonChangeScene(display, (display.getWidth()-55), 10, 50, 50, 2, Assets.buttonOptions));
 	}
 }
