@@ -17,6 +17,7 @@ public class Display extends JPanel {
 	 * Scene 1: Game
 	 * Scene 2: Settings
 	 * Scene 3: Result
+	 * Scene 4: GameTimeAttack
 	 */
 	private ArrayList<Scene> scenes;
 	private int currentScene = 0;

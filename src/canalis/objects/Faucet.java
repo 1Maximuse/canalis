@@ -55,12 +55,12 @@ public class Faucet extends GameObject implements Renderable, Clickable {
 
 	@Override
 	public boolean isInside(int x, int y) {
-		if (x >= posX && y >= posY && x <= posX + Game.GRID_SIZE && y <= posY + Game.GRID_SIZE) return true;
+		if (x >= posX-Game.GRID_SIZE && y >= posY+Game.GRID_SIZE && x <= posX-Game.GRID_SIZE+Game.GRID_SIZE && y <= posY+Game.GRID_SIZE+Game.GRID_SIZE) return true;
 		return false;
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.faucet[rotation % 8], posX, posY, Game.GRID_SIZE, Game.GRID_SIZE, null);
+		g.drawImage(Assets.faucet[rotation % 8], posX-Game.GRID_SIZE, posY+Game.GRID_SIZE, Game.GRID_SIZE, Game.GRID_SIZE, null);
 	}
 }
