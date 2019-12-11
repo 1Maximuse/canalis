@@ -6,16 +6,16 @@ import canalis.Assets;
 import canalis.Display;
 import canalis.Renderable;
 
-public class Logo implements Renderable {
+public class BackgroundInGame implements Renderable {
 	
 	private final Display display;
 	
-	public Logo(Display display) {
+	public BackgroundInGame(Display display) {
 		this.display = display;
 	}
-
+	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.logo, (int)((display.getWidth() - (Assets.logo.getWidth() / 2)) / 2.0), 0, Assets.logo.getWidth() / 2, Assets.logo.getHeight() / 2, null);
+		g.drawImage(Assets.backgroundInGame, 0, -100, 1000, 1000, null);
 	}
 }

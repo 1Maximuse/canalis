@@ -27,17 +27,16 @@ public class SceneGameTimeAttack extends SceneGame {
 		
 		switch (currentDifficulty) {
 		case EASY:
-			clock.addSeconds(10);
+			clock.addSeconds(6);
 			break;
 		case MEDIUM:
-			clock.addSeconds(15);
+			clock.addSeconds(8);
 			break;
 		case HARD:
-			clock.addSeconds(25);
+			clock.addSeconds(12);
 			break;
 		}
 		
-
 		solved++;
 		newGrid(false);
 		clock.unpause();

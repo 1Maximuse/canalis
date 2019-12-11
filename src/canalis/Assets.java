@@ -16,6 +16,8 @@ public class Assets {
 	public static Font fontSecondary;
 	
 	public static BufferedImage background;
+	public static BufferedImage backgroundInGame;
+	
 	public static BufferedImage logo;
 	
 	public static BufferedImage buttonOptions;
@@ -68,6 +70,8 @@ public class Assets {
 		}
 		
 		background = getTexture("ui/background.png");
+		backgroundInGame = getTexture("ui/bg_ingame.png");
+		
 		logo = getTexture("ui/logo.png");
 		buttonOptions = getTexture("ui/button_options.png");
 		buttonBack = getTexture("ui/button_back.png");

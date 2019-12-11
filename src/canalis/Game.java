@@ -27,7 +27,7 @@ public class Game implements Runnable {
 		display = new Display(1024, 768, this);
 		GRID_SIZE = Math.min((display.getWidth() - 2*PADDING) / 7, (display.getHeight() - 2*PADDING) / 3);
 		
-		clock = new Clock(0, 100, this, display);
+		clock = new Clock(display.getWidth()/2-250, 100, this, display);
 		
 		display.addScene(new SceneMainMenu(this, display));
 		display.addScene(sceneGame = new SceneGame(this, display, Difficulty.EASY, clock));

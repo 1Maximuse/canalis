@@ -40,6 +40,10 @@ public class Display extends JPanel {
 	public Scene getCurrentScene() {
 		return scenes.get(currentScene);
 	}
+	
+	public int getCurrentSceneNumber() {
+		return currentScene;
+	}
 
 	public void setScene(int scene) {
 		this.currentScene = scene;

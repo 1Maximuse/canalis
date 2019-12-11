@@ -3,6 +3,8 @@ package canalis.scene;
 import canalis.Assets;
 import canalis.Display;
 import canalis.Game;
+import canalis.objects.Background;
+import canalis.objects.BackgroundInGame;
 import canalis.objects.ButtonChangeScene;
 import canalis.objects.Clock;
 import canalis.objects.Faucet;
@@ -56,6 +58,8 @@ public class SceneGame extends Scene {
 			faucet.setPosY((display.getHeight() - 7*Game.GRID_SIZE) / 2);
 			break;
 		}
+
+		addSceneObject(new BackgroundInGame(display));
 		addSceneObject(pipeGrid);
 		addSceneObject(faucet);
 		addSceneObject(back);

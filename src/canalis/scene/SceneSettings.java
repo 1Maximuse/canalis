@@ -24,7 +24,7 @@ public class SceneSettings extends Scene {
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)-120, Difficulty.EASY, this));
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), display.getHeight()/2, Difficulty.MEDIUM, this));
 		addSceneObject(new ButtonSetting(display, (display.getWidth()/2)-(200/2), (display.getHeight()/2)+120, Difficulty.HARD, this));
-		addSceneObject(new TextCentered(display, 200, Assets.font.deriveFont(60.0f), Assets.colorMain, "Select Difficulty"));
+		addSceneObject(new TextCentered(display, 150, Assets.font.deriveFont(60.0f), Assets.colorMain, "Select Difficulty"));
 	}
 	
 	public void setDifficulty(Difficulty diff) {
