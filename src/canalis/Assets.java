@@ -27,8 +27,10 @@ public class Assets {
 	public static BufferedImage buttonDifficultyEasy;
 	public static BufferedImage buttonDifficultyMedium;
 	public static BufferedImage buttonDifficultyHard;
+	public static BufferedImage buttonCredits;
 	public static BufferedImage buttonMainMenu;
 	public static BufferedImage buttonRetry;
+	
 	
 	
 	public static BufferedImage pipeHorizontal;
@@ -81,6 +83,8 @@ public class Assets {
 		buttonDifficultyEasy = getTexture("ui/button_difficulty1.png");
 		buttonDifficultyMedium = getTexture("ui/button_difficulty2.png");
 		buttonDifficultyHard = getTexture("ui/button_difficulty3.png");
+		buttonCredits = getTexture("ui/button_credits.png");
+		
 		
 		buttonMainMenu = getTexture("ui/button_mainmenu.png");
 		buttonRetry = getTexture("ui/button_retry.png");

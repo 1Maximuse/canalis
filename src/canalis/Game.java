@@ -3,6 +3,7 @@ package canalis;
 import java.awt.EventQueue;
 
 import canalis.objects.Clock;
+import canalis.scene.SceneCredits;
 import canalis.scene.SceneGame;
 import canalis.scene.SceneGame.Difficulty;
 import canalis.scene.SceneGameTimeAttack;
@@ -19,6 +20,8 @@ public class Game implements Runnable {
 	private SceneGame sceneGame;
 	private SceneGameTimeAttack sceneGameTA;
 	private SceneResult sceneResult;
+	private SceneCredits sceneCredits;
+	
 	private Clock clock;
 	
 	@Override
@@ -34,6 +37,8 @@ public class Game implements Runnable {
 		display.addScene(new SceneSettings(this, display));
 		display.addScene(sceneResult = new SceneResult(this, display));
 		display.addScene(sceneGameTA = new SceneGameTimeAttack(this, display, Difficulty.EASY, clock));
+		display.addScene(sceneCredits = new SceneCredits(this, display));
+		
 		
 		display.setScene(0);
 	}

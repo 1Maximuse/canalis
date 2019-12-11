@@ -46,16 +46,16 @@ public class SceneGame extends Scene {
 			faucet.setPosY((display.getHeight() - 4*Game.GRID_SIZE) / 2);
 			break;
 		case MEDIUM:
-			Game.GRID_SIZE = Math.min((display.getWidth() - 2*Game.PADDING) / 9, (display.getHeight() - 2*Game.PADDING) / 4);
-			pipeGrid = new PipeGrid((display.getWidth() - 8*Game.GRID_SIZE) / 2, (display.getHeight() - 5*Game.GRID_SIZE) / 2, 8, 5, this, display);
-			faucet.setPosX((display.getWidth() - 8*Game.GRID_SIZE) / 2);
-			faucet.setPosY((display.getHeight() - 5*Game.GRID_SIZE) / 2);
+			Game.GRID_SIZE = Math.min((display.getWidth() - 2*Game.PADDING) / 10, (display.getHeight() - 2*Game.PADDING) / 5);
+			pipeGrid = new PipeGrid((display.getWidth() - 9*Game.GRID_SIZE) / 2, (display.getHeight() - 6*Game.GRID_SIZE) / 2, 9, 6, this, display);
+			faucet.setPosX((display.getWidth() - 9*Game.GRID_SIZE) / 2);
+			faucet.setPosY((display.getHeight() - 6*Game.GRID_SIZE) / 2);
 			break;
 		case HARD:
-			Game.GRID_SIZE = Math.min((display.getWidth() - 2*Game.PADDING) / 11, (display.getHeight() - 2*Game.PADDING) / 6);
-			pipeGrid = new PipeGrid((display.getWidth() - 10*Game.GRID_SIZE) / 2, (display.getHeight() - 7*Game.GRID_SIZE) / 2, 10, 7, this, display);
-			faucet.setPosX((display.getWidth() - 10*Game.GRID_SIZE) / 2);
-			faucet.setPosY((display.getHeight() - 7*Game.GRID_SIZE) / 2);
+			Game.GRID_SIZE = Math.min((display.getWidth() - 2*Game.PADDING) / 13, (display.getHeight() - 2*Game.PADDING) / 8);
+			pipeGrid = new PipeGrid((display.getWidth() - 12*Game.GRID_SIZE) / 2, (display.getHeight() - 9*Game.GRID_SIZE) / 2, 12, 9, this, display);
+			faucet.setPosX((display.getWidth() - 12*Game.GRID_SIZE) / 2);
+			faucet.setPosY((display.getHeight() - 9*Game.GRID_SIZE) / 2);
 			break;
 		}
 
