@@ -1,13 +1,13 @@
 package canalis.objects;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import canalis.Assets;
 import canalis.Display;
 import canalis.Game;
 import canalis.Renderable;
@@ -89,7 +89,7 @@ public class Clock extends GameObject implements Renderable {
 	
 	@Override
 	public void render(Graphics g) {
-		g.setFont(new Font("Segoe Print", Font.PLAIN, 40));
+		g.setFont(Assets.fontSecondary.deriveFont(40.0f));
 		g.setColor(Color.BLACK);
 		g.drawString(String.format("%02d:%02d", minute, second), posX, posY);
 	}

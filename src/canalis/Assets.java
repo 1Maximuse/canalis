@@ -21,6 +21,7 @@ public class Assets {
 	public static BufferedImage buttonOptions;
 	public static BufferedImage buttonBack;	
 	public static BufferedImage buttonPlayCasual;
+	public static BufferedImage buttonPlayTimeAttack;
 	public static BufferedImage buttonDifficultyEasy;
 	public static BufferedImage buttonDifficultyMedium;
 	public static BufferedImage buttonDifficultyHard;
@@ -71,6 +72,7 @@ public class Assets {
 		buttonOptions = getTexture("ui/button_options.png");
 		buttonBack = getTexture("ui/button_back.png");
 		buttonPlayCasual = getTexture("ui/button_casual.png");
+		buttonPlayTimeAttack = getTexture("ui/button_timeattack.png");
 		
 		buttonDifficultyEasy = getTexture("ui/button_difficulty1.png");
 		buttonDifficultyMedium = getTexture("ui/button_difficulty2.png");
