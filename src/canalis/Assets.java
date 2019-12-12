@@ -31,8 +31,6 @@ public class Assets {
 	public static BufferedImage buttonMainMenu;
 	public static BufferedImage buttonRetry;
 	
-	
-	
 	public static BufferedImage pipeHorizontal;
 	public static BufferedImage pipeVertical;
 	public static BufferedImage pipeTopRight;

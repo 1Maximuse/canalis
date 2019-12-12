@@ -20,7 +20,6 @@ public class Game implements Runnable {
 	private SceneGame sceneGame;
 	private SceneGameTimeAttack sceneGameTA;
 	private SceneResult sceneResult;
-	private SceneCredits sceneCredits;
 	
 	private Clock clock;
 	
@@ -37,7 +36,7 @@ public class Game implements Runnable {
 		display.addScene(new SceneSettings(this, display));
 		display.addScene(sceneResult = new SceneResult(this, display));
 		display.addScene(sceneGameTA = new SceneGameTimeAttack(this, display, Difficulty.EASY, clock));
-		display.addScene(sceneCredits = new SceneCredits(this, display));
+		display.addScene(new SceneCredits(this, display));
 		
 		
 		display.setScene(0);

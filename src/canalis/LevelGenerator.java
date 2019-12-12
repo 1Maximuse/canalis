@@ -27,13 +27,6 @@ public class LevelGenerator {
 		}
 		generate(0, 0, 0);
 		tiles = createTiles(0, 0);
-//		for (int i = 0; i < height; i++) {
-//		for (int j = 0; j < width; j++) {
-//			System.out.printf("%d\t", path[i][j]);
-//		}
-//		System.out.println();
-//	}
-//	System.out.println();
 	}
 	
 	public int[][] getTiles() {
@@ -120,7 +113,6 @@ public class LevelGenerator {
 		Face prev = Face.LEFT;
 		while (x != width-1 || y != height-1)  {
 			p.add(new Point(x, y));
-//			System.out.println(x + ":" + y);
 			if (prev != Face.TOP && pipes[y][x].getAccess(Face.TOP) && y > 0 && pipes[y-1][x].getAccess(Face.BOTTOM)) {
 				prev = Face.BOTTOM;
 				y--;

@@ -22,7 +22,5 @@ public class SceneCredits extends Scene {
 		addSceneObject(new TextCentered(display, 710, Assets.font.deriveFont(60.0f), Assets.colorMain, "Martin William"));
 		
 		addSceneObject(new ButtonChangeScene(display, 10, 10, 50, 50, 2, Assets.buttonBack));
-		
 	}
-
 }

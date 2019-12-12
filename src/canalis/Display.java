@@ -13,12 +13,12 @@ import canalis.scene.Scene;
 public class Display extends JPanel {
 	
 	/**
-	 * Scene 0: Main Menu
-	 * Scene 1: Game
-	 * Scene 2: Settings
-	 * Scene 3: Result
-	 * Scene 4: GameTimeAttack
-	 * Scene 5: Credits
+	 *      Scene 0: Main Menu
+	 * <br> Scene 1: Game
+	 * <br> Scene 2: Settings
+	 * <br> Scene 3: Result
+	 * <br> Scene 4: GameTimeAttack
+	 * <br> Scene 5: Credits
 	 */
 	private ArrayList<Scene> scenes;
 	private int currentScene = 0;

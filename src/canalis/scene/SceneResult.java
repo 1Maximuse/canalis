@@ -5,7 +5,6 @@ import java.util.Random;
 import canalis.Assets;
 import canalis.Display;
 import canalis.Game;
-import canalis.objects.Background;
 import canalis.objects.BackgroundInGame;
 import canalis.objects.ButtonChangeScene;
 import canalis.objects.TextCentered;
@@ -24,7 +23,7 @@ public class SceneResult extends Scene {
 		super(game, display);
 		rng = new Random();
 		random = rng.nextInt(3);
-		addSceneObject(new BackgroundInGame(display));
+		addSceneObject(new BackgroundInGame());
 		addSceneObject(win = new TextCentered(display, 150, Assets.font.deriveFont(100.0f), Assets.colorMain, result[random]));
 		addSceneObject(gameResult = new TextCentered(display, 300, Assets.fontSecondary.deriveFont(40.0f), Assets.colorMain, ""));
 		addSceneObject(retry = new ButtonChangeScene(display, (display.getWidth()/3*1)-(200/2), (display.getHeight()/3*2), 200, 80, 1, Assets.buttonRetry));

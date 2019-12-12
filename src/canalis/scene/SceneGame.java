@@ -3,7 +3,6 @@ package canalis.scene;
 import canalis.Assets;
 import canalis.Display;
 import canalis.Game;
-import canalis.objects.Background;
 import canalis.objects.BackgroundInGame;
 import canalis.objects.ButtonChangeScene;
 import canalis.objects.Clock;
@@ -59,7 +58,7 @@ public class SceneGame extends Scene {
 			break;
 		}
 
-		addSceneObject(new BackgroundInGame(display));
+		addSceneObject(new BackgroundInGame());
 		addSceneObject(pipeGrid);
 		addSceneObject(faucet);
 		addSceneObject(back);
